@@ -1,22 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
+
+const StyledCheckBox = styled.input``;
 
 const CheckBox = props => (
-  <input
+  <StyledCheckBox
     type="checkbox"
-    id={`${props.name}-${props.value}`}
-    value={props.value}
+    id={props.id}
     name={props.name}
+    value={props.value}
     checked={props.checked}
-    onChange={props.onChange}
+    onChange={props.handleChange}
   />
 );
 
 CheckBox.propTypes = {
   name: PropTypes.string,
   value: PropTypes.string,
-  checked: PropTypes.bool,
-  onChange: PropTypes.func,
+  handleChange: PropTypes.func,
 };
 
 export default CheckBox;

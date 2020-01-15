@@ -1,20 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { DEFAULT_HEIGHT, DEFAULT_WIDTH, FONT_SIZE } from "../global/style";
 
-const DEFAULT_HEIGHT = 50;
-const DEFAULT_WIDTH = 300;
-const DEFAULT_FONT_SIZE = 14;
-
-const TextAreaField = styled.textarea`
-  height: ${props => props.height || DEFAULT_HEIGHT}px;
+const StyledTextArea = styled.textarea`
+  height: ${DEFAULT_HEIGHT * 2}px;
   width: ${props => props.width || DEFAULT_WIDTH}px;
-  font-size: ${props => props.fontSize || DEFAULT_FONT_SIZE}pt;
+  font-size: ${FONT_SIZE}pt;
   resize: vertical;
 `;
 
 const TextArea = props => (
-  <TextAreaField
+  <StyledTextArea
+    autoComplete="on"
     id={props.name}
     name={props.name}
     value={props.value}
@@ -22,13 +20,8 @@ const TextArea = props => (
     required={props.required}
     min={props.min}
     max={props.max}
-    autoFoxus={props.autoFocus}
-    height={props.height}
+    onChange={props.handleChange}
     width={props.width}
-    fontSize={props.fontSize}
-    onChange={props.onChange}
-    onBlur={props.onBlur}
-    autoComplete="on"
   />
 );
 
@@ -39,12 +32,8 @@ TextArea.propTypes = {
   required: PropTypes.bool,
   min: PropTypes.number,
   max: PropTypes.number,
-  autoFoxus: PropTypes.bool,
-  height: PropTypes.number,
+  handleChange: PropTypes.func,
   width: PropTypes.number,
-  fontSize: PropTypes.number,
-  onChange: PropTypes.string,
-  onBlur: PropTypes.string,
 };
 
 export default TextArea;
