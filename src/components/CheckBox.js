@@ -73,6 +73,7 @@ class CheckBox extends Component {
           id={id}
           name={name}
           value={value}
+          checked={checked}
           onChange={this.onChange.bind(this)}
         />
         <StyledLabel htmlFor={id} color={color}>

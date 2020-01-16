@@ -61,6 +61,7 @@ function App() {
         label={"checkbox label"}
         name={"checkbox name"}
         value={"checkbox value"}
+        checked={true}
         required={false}
         editAllowed={true}
         handleChange={(dto) => {
