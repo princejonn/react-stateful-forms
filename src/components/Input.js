@@ -166,7 +166,7 @@ class Input extends Component {
                   />
                 )}
               </InputWrapper>
-              {error && <ErrorMessage message={error}/>}
+              {error && <ErrorMessage message={error} />}
             </ComponentWrapper>
           </FormInputWrapper>
           {this.saveAllowed && editAllowed && changed && (

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { COLOR_GRAY, FONT_SIZE_LIST } from "../global/style";
 import ErrorMessage from "./ErrorMessage";
+import { ComponentWrapper } from "../styled/wrappers";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -33,11 +34,6 @@ class CheckBox extends Component {
         throw new Error("You are not allowed to edit this field");
       }
 
-      this.setState({
-        checked,
-        error: null,
-      });
-
       if (this.props.handleChange) {
         this.props.handleChange({ name, value, checked });
       }
@@ -45,6 +41,11 @@ class CheckBox extends Component {
       if (this.props.handleSubmit) {
         this.props.handleSubmit({ name, value, checked })
       }
+
+      this.setState({
+        checked,
+        error: null,
+      });
     } catch (err) {
       this.setState({ error: err.message });
     }
@@ -67,22 +68,22 @@ class CheckBox extends Component {
     const color = required && !checked ? "red" : null;
 
     return (
-      <StyledWrapper>
-        <input
-          type="checkbox"
-          id={id}
-          name={name}
-          value={value}
-          checked={checked}
-          onChange={this.onChange.bind(this)}
-        />
-        <StyledLabel htmlFor={id} color={color}>
-          {label}{required && !checked ? " [required]" : null}
-        </StyledLabel>
-        <ErrorMessage
-          message={error}
-        />
-      </StyledWrapper>
+      <ComponentWrapper>
+        <StyledWrapper>
+          <input
+            type="checkbox"
+            id={id}
+            name={name}
+            value={value}
+            checked={checked}
+            onChange={this.onChange.bind(this)}
+          />
+          <StyledLabel htmlFor={id} color={color}>
+            {label}{required && !checked ? " [required]" : null}
+          </StyledLabel>
+        </StyledWrapper>
+        {error && <ErrorMessage message={error} />}
+      </ComponentWrapper>
     );
   }
 }

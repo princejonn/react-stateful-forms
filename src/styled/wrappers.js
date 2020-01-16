@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { COLOR_BORDER } from "../global/style";
 
 export const ComponentWrapper = styled.div`
-  display: box;
+  display: block;
   width: 100%;
 `;
 
