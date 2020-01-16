@@ -1,77 +1,70 @@
 import React from 'react';
 import { GlobalStyle } from "./global/style";
-import SmartCheckBox from "./components/SmartCheckBox";
-import StatefulNumberField from "./stateful/StatefulNumberField";
-import StatefulTextField from "./stateful/StatefulTextField";
-import StatefulTextArea from "./stateful/StatefulTextArea";
+import Input from "./components/Input";
+import CheckBox from "./components/CheckBox";
 
 function App() {
   return (
     <div className="App">
       <GlobalStyle />
-      <StatefulNumberField
-        name={"number"}
-        value={200}
-        label={"number field"}
+      <Input
+        type={"text"}
+        label={"text label"}
+        name={"text name"}
+        value={""}
+        required={true}
         editAllowed={true}
-        width={400}
-        handleSubmit={(name, val) => {
-          console.log("onSubmit", name, val);
-          if (val === "throw") throw new Error("onSubmitError message");
+        handleChange={(dto) => {
+          console.log("text", dto);
         }}
-        handleValidation={(name, val) => {
-          console.log("onChangeValidation", name, val);
-          if (val === "error") throw new Error("onChangeError message")
+        handleSubmit={(dto) => {
+          console.log("submit", dto);
         }}
       />
-      <StatefulTextField
-        name={"text"}
-        value={"oskar"}
-        label={"text field"}
-        editAllowed={true}
-        width={400}
-        handleSubmit={(name, val) => {
-          console.log("onSubmit", name, val);
-          if (val === "throw") throw new Error("onSubmitError message");
+      <Input
+        type={"disallowed"}
+        label={"disallowed label"}
+        name={"disallowed name"}
+        value={""}
+        required={false}
+        editAllowed={false}
+        handleChange={(dto) => {
+          console.log("disallowed", dto);
         }}
-        handleValidation={(name, val) => {
-          console.log("onChangeValidation", name, val);
-          if (val === "error") throw new Error("onChangeError message")
-        }}
-      />
-      <StatefulTextArea
-        name={"textarea"}
-        value={"fredrik"}
-        label={"text area"}
-        editAllowed={true}
-        width={400}
-        handleSubmit={(name, val) => {
-          console.log("onSubmit", name, val);
-          if (val === "throw") throw new Error("onSubmitError message");
-        }}
-        handleValidation={(name, val) => {
-          console.log("onChangeValidation", name, val);
-          if (val === "error") throw new Error("onChangeError message")
+        handleSubmit={(dto) => {
+          console.log("submit", dto);
         }}
       />
-      <SmartCheckBox
-        name={"name-1"}
-        value={"value-1"}
-        label={"label-1"}
+      <Input
+        type={"number"}
+        label={"number label"}
+        name={"number name"}
+        value={""}
+        required={true}
         editAllowed={true}
-        checked={true}
-        handleChange={(name, value, checked) => {
-          console.log("n:", name, "v:", value, "c:", checked);
+        handleChange={(dto) => {
+          console.log("number", dto);
         }}
       />
-      <SmartCheckBox
-        name={"name-2"}
-        value={"value-2"}
-        label={"label-2"}
+      <Input
+        type={"textarea"}
+        label={"textarea label"}
+        name={"textarea name"}
+        value={""}
+        required={true}
         editAllowed={true}
-        checked={true}
-        handleChange={(name, value, checked) => {
-          console.log("n:", name, "v:", value, "c:", checked);
+        handleChange={(dto) => {
+          console.log("textarea", dto);
+        }}
+      />
+      <CheckBox
+        label={"checkbox label"}
+        name={"checkbox name"}
+        value={"checkbox value"}
+        required={false}
+        editAllowed={true}
+        handleChange={(dto) => {
+          console.log("checkbox", dto);
         }}
       />
     </div>

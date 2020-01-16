@@ -2,14 +2,16 @@ import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
 export const FONT_FAMILY = "Sans-Serif";
-export const FONT_SIZE = 14;
 
+export const FONT_SIZE_INPUT = "14pt";
+export const FONT_SIZE_LABEL = "9pt";
+export const FONT_SIZE_LIST = "11pt";
+export const FONT_SIZE_ERROR = "12pt";
+
+export const COLOR_BORDER = "#CCCCCC";
 export const COLOR_GRAY = "#222222";
 export const COLOR_SAVE = "#C5E1A5";
 export const COLOR_CANCEL = "#B0BEC5";
-
-export const DEFAULT_HEIGHT = 25;
-export const DEFAULT_WIDTH = 300;
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -23,7 +25,9 @@ export const GlobalStyle = createGlobalStyle`
   
   body {
     padding: 20px;
-    background: #fff;
+    background: #F1F1F1;
+    font-family: ${FONT_FAMILY};
+    color: ${COLOR_GRAY};
   }
   
   svg {

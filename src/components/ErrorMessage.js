@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { FONT_SIZE_ERROR } from "../global/style";
 
 const StyledErrorMessage = styled.div`
-  padding-top: 5px;
-  padding-left: 5px;
-  font-size: 10pt;
+  display: box;
+  padding: 5px;
+  font-size: ${FONT_SIZE_ERROR};
   color: red;
 `;
 
