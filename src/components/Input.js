@@ -43,16 +43,12 @@ class Input extends Component {
   onChange(evt) {
     evt.preventDefault();
 
-    const { name, value } = evt.target;
-    const { editAllowed } = this.props;
+    const { value } = evt.target;
+    const { name, editAllowed } = this.props;
 
     try {
       if(!editAllowed) {
         throw new Error("You are not allowed to edit this field");
-      }
-
-      if (this.props.handleChange) {
-        this.props.handleChange({ name, value });
       }
 
       this.setState({
@@ -60,6 +56,10 @@ class Input extends Component {
         value,
         error: null,
       });
+
+      if (this.props.handleChange) {
+        this.props.handleChange({ name, value });
+      }
     } catch (err) {
       this.setState({ error: err.message });
     }
@@ -71,8 +71,7 @@ class Input extends Component {
     if (this.state.error) return;
     if (!this.saveAllowed) return;
 
-    const { name } = evt.target;
-    const { editAllowed } = this.props;
+    const { name, editAllowed } = this.props;
     const { value } = this.state;
 
     try {
@@ -134,7 +133,7 @@ class Input extends Component {
             <ComponentWrapper>
               <LabelWrapper>
                 <StyledLabel htmlFor={name} color={color}>
-                  {label}{required && (!value || !value.length) ? " [required]" : null}
+                  {label}{required && " *"}
                 </StyledLabel>
               </LabelWrapper>
               <InputWrapper borderColor={color}>
