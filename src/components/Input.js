@@ -46,23 +46,22 @@ class Input extends Component {
     const { value } = evt.target;
     const { name, editAllowed } = this.props;
 
-    try {
-      if(!editAllowed) {
-        throw new Error("You are not allowed to edit this field");
-      }
-
-      this.setState({
-        changed: true,
-        value,
-        error: null,
-      });
-
-      if (this.props.handleChange) {
-        this.props.handleChange({ name, value });
-      }
-    } catch (err) {
-      this.setState({ error: err.message });
+    if (!editAllowed) {
+      this.setState({ error: "You are not allowed to edit this field" });
     }
+
+    this.setState({
+      changed: true,
+      value,
+      error: null,
+    });
+
+    if (!this.props.handleChange) return;
+
+    this.props.handleChange({ name, value })
+      .catch(err => {
+        this.setState({ error: err.message });
+      });
   }
 
   onSave(evt) {
@@ -73,23 +72,24 @@ class Input extends Component {
 
     const { name, editAllowed } = this.props;
     const { value } = this.state;
+    const newState = {
+      changed: false,
+      savedValue: value,
+    };
 
-    try {
-      if (!editAllowed) {
-        throw new Error("You are not allowed to save this field");
-      }
-
-      if (this.props.handleSubmit) {
-        this.props.handleSubmit({ name, value });
-      }
-
-      this.setState({
-        changed: false,
-        savedValue: value,
-      });
-    } catch (err) {
-      this.setState({ error: err.message });
+    if (!editAllowed) {
+      this.setState({ error: "You are not allowed to save this field" });
     }
+
+    if (!this.props.handleSubmit) {
+      return this.setState(newState);
+    }
+
+    this.props.handleSubmit({ name, value })
+      .then(this.setState(newState))
+      .catch(err => {
+        this.setState({ error: err.message });
+      });
   }
 
   onCancel(evt) {
@@ -133,7 +133,7 @@ class Input extends Component {
             <ComponentWrapper>
               <LabelWrapper>
                 <StyledLabel htmlFor={name} color={color}>
-                  {label}{required && " *"}
+                  {label}{required && "*"}
                 </StyledLabel>
               </LabelWrapper>
               <InputWrapper borderColor={color}>

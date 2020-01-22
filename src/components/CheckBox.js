@@ -25,30 +25,25 @@ class CheckBox extends Component {
     };
   }
 
-  onChange(evt) {
+  onCheck(evt) {
     const { name, value, checked } = evt.target;
     const { editAllowed } = this.props;
 
-    try {
-      if (!editAllowed) {
-        throw new Error("You are not allowed to edit this field");
-      }
-
-      if (this.props.handleChange) {
-        this.props.handleChange({ name, value, checked });
-      }
-
-      if (this.props.handleSubmit) {
-        this.props.handleSubmit({ name, value, checked })
-      }
-
-      this.setState({
-        checked,
-        error: null,
-      });
-    } catch (err) {
-      this.setState({ error: err.message });
+    if (!editAllowed) {
+      this.setState({ error: "You are not allowed to edit this field" });
     }
+
+    this.setState({
+      checked,
+      error: null,
+    });
+
+    if (!this.props.handleCheck) return;
+
+    this.props.handleCheck({ name, value, checked })
+      .catch(err => {
+        this.setState({ error: err.message });
+      });
   }
 
   render() {
@@ -76,10 +71,10 @@ class CheckBox extends Component {
             name={name}
             value={value}
             checked={checked}
-            onChange={this.onChange.bind(this)}
+            onChange={this.onCheck.bind(this)}
           />
           <StyledLabel htmlFor={id} color={color}>
-            {label}{required && !checked ? " [required]" : null}
+            {label}{required && "*"}
           </StyledLabel>
         </StyledWrapper>
         {error && <ErrorMessage message={error} />}
@@ -94,8 +89,7 @@ CheckBox.propTypes = {
   value: PropTypes.string,
   checked: PropTypes.bool,
   editAllowed: PropTypes.bool,
-  handleChange: PropTypes.func,
-  handleSubmit: PropTypes.func,
+  handleCheck: PropTypes.func,
 };
 
 export default CheckBox;
